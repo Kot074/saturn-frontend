@@ -1,0 +1,13 @@
+.textbox {
+    height: 30px;
+    font-size: 16px;
+
+    padding: 0 5px;
+
+    border-radius: 5px;
+    border: 1px solid royalblue;
+}
+
+.error {
+    border-color: red;
+}

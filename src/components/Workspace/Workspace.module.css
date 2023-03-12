@@ -1,0 +1,5 @@
+.workspace {
+    grid-area: Workspace;
+
+    overflow: auto;
+}

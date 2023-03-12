@@ -1,0 +1,8 @@
+.logo {
+    height: 100%;
+}
+
+.logo img {
+    height: 100%;
+    cursor: pointer;
+}
