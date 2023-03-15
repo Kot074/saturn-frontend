@@ -7,7 +7,10 @@ import Button from "../../common/Button/Button";
 const Users = (props) => {
     const navigate = useNavigate();
     const selectUser = (user) => {
-        navigate(`/users/edit/${user.id}`);
+        navigate(`/users/edit?id=${user.id}`);
+    };
+    const createUser = () => {
+        navigate('/users/edit');
     }
 
     return (
@@ -15,7 +18,7 @@ const Users = (props) => {
             <div className={styles.header}>
                 <div>Пользователи</div>
                 <div>
-                    <Button value='Добавить' />
+                    <Button value='Добавить' onClick={createUser} />
                 </div>
             </div>
             <div className={styles.content}>
