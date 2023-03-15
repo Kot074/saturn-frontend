@@ -4,12 +4,12 @@ import Sidebar from "../Sidebar/Sidebar";
 import Workspace from "../Workspace/Workspace";
 import Login from "../Login/Login";
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <Header/>
       <Sidebar/>
-      <Workspace/>
+      <Workspace data={props.state.workspace} />
     </div>
 
       // <div className='LoginWrapper'>
