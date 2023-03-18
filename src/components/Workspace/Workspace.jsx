@@ -9,8 +9,8 @@ const Workspace = (props) => {
     return (
         <Routes>
             <Route path='/' element={<Welcome />}  />
-            <Route path='/users' element={<Users data={props.data.users} />} />
-            <Route path='/users/edit' element={<Edit />} />
+            <Route path='/users' element={<Users data={props.data.users} dispatch={props.dispatch} />} />
+            <Route path='/users/edit' element={<Edit users={props.data.users.data}/>} />
         </Routes>
     )
 }

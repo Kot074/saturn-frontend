@@ -1,0 +1,22 @@
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    font-size: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 10px 0;
+    margin: 10px 25px;
+
+    border-bottom: 2px solid royalblue;
+}
+
+.content {
+    width: 100%;
+    margin: 0 25px;
+}

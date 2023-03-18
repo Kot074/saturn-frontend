@@ -7,10 +7,10 @@ import Button from "../../common/Button/Button";
 const Users = (props) => {
     const navigate = useNavigate();
     const selectUser = (user) => {
-        navigate(`/users/edit?id=${user.id}`);
+        props.dispatch({type: 'OPEN_USER_EDITOR', navigate: navigate, id: user.id});
     };
     const createUser = () => {
-        navigate('/users/edit');
+        props.dispatch({type: 'OPEN_USER_EDITOR', navigate: navigate });
     }
 
     return (

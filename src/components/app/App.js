@@ -9,7 +9,7 @@ function App(props) {
     <div className="App">
       <Header/>
       <Sidebar/>
-      <Workspace data={props.state.workspace} />
+      <Workspace data={props.state.workspace} dispatch={props.dispatch} />
     </div>
 
       // <div className='LoginWrapper'>
