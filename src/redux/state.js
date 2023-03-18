@@ -5,30 +5,37 @@ let store = {
                 tableSettings: [
                     {
                         title: "ID",
+                        key: 'id',
                         width: "50px"
                     },
                     {
                         title: "Фамилия",
+                        key: 'lastname',
                         width: ""
                     },
                     {
                         title: "Имя",
+                        key: 'name',
                         width: ""
                     },
                     {
                         title: "Отчество",
+                        key: 'patronymic',
                         width: ""
                     },
                     {
                         title: "Email",
+                        key: 'email',
                         width: ""
                     },
                     {
                         title: "Телефон",
+                        key: 'phone',
                         width: ""
                     },
                     {
                         title: "Роль",
+                        key: 'role',
                         width: ""
                     },
                 ],

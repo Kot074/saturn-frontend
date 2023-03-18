@@ -8,14 +8,11 @@ const Row = (props) => {
 
     return (
         <div className={styles.row} onClick={onClick}>
-            {Object.keys(props.object).map(key => {
-                let index = Object.keys(props.object).indexOf(key);
-                let width = props.settings[index].width;
-
+            {props.settings.map(opt => {
                 return (
-                    width !== '' ?
-                        <div className={styles.cell} style={{width: width}}>{props.object[key]}</div> :
-                        <div className={styles.cell} style={{flex: 1}}>{props.object[key]}</div>
+                    opt.width !== '' ?
+                        <div className={styles.cell} style={{width: opt.width}}>{props.object[opt.key]}</div> :
+                        <div className={styles.cell} style={{flex: 1}}>{props.object[opt.key]}</div>
                 )
             })}
         </div>
