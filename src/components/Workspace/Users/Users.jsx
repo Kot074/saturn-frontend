@@ -3,14 +3,15 @@ import styles from "./Users.module.css";
 import Table from "../../common/Table/Table";
 import {useNavigate} from "react-router-dom";
 import Button from "../../common/Button/Button";
+import {getOpenUserEditorAction} from "../../../redux/usersPageReducer";
 
 const Users = (props) => {
     const navigate = useNavigate();
     const selectUser = (user) => {
-        props.dispatch({type: 'OPEN_USER_EDITOR', navigate: navigate, id: user.id});
+        props.dispatch(getOpenUserEditorAction(navigate, user.id));
     };
     const createUser = () => {
-        props.dispatch({type: 'OPEN_USER_EDITOR', navigate: navigate });
+        props.dispatch(getOpenUserEditorAction(navigate));
     }
 
     return (

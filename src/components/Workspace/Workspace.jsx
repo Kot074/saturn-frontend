@@ -1,5 +1,4 @@
 import React from "react";
-import styles from './Workspace.module.css';
 import Welcome from "./Welcome/Welcome";
 import Users from "./Users/Users";
 import {Route, Routes} from "react-router-dom";
@@ -10,7 +9,7 @@ const Workspace = (props) => {
         <Routes>
             <Route path='/' element={<Welcome />}  />
             <Route path='/users' element={<Users data={props.data.users} dispatch={props.dispatch} />} />
-            <Route path='/users/edit' element={<Edit users={props.data.users.data}/>} />
+            <Route path='/users/edit' element={<Edit users={props.data.users.data} currentUser={props.data.editingUser} dispatch={props.dispatch}/>} />
         </Routes>
     )
 }

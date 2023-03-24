@@ -4,14 +4,24 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import store from "./redux/state"
+import store from "./redux/redux-store"
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <BrowserRouter>
-        <App state={store.dispatch({type: 'GET_STATE'})} dispatch={store.dispatch}/>
-    </BrowserRouter>
-);
+const renderAll = (state) => {
+    root.render(
+        <BrowserRouter>
+            <App state={state} dispatch={store.dispatch.bind(store)}/>
+        </BrowserRouter>
+    );
+}
+
+renderAll(store.getState());
+
+store.subscribe(() => {
+    let state = store.getState();
+    renderAll(state);
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

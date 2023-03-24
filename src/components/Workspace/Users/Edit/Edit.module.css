@@ -19,4 +19,13 @@
 .content {
     width: 100%;
     margin: 0 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 25px 10px 0;
 }

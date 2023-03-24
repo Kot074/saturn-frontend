@@ -1,3 +1,6 @@
+import userEditReducer from "./userEditReducer";
+import usersPageReducer from "./usersPageReducer";
+
 let store = {
     _state: {
         workspace: {
@@ -76,17 +79,23 @@ let store = {
                         phone: "8 (222) 222-22-22",
                         role: "Guest"
                     },
-                ]
+                ],
+                currentUser: {}
             }
         }
     },
+    getState(){
+        return this._state;
+    },
+    _listener(){},
+    setListener(listener){
+        this._listener = listener;
+    },
     dispatch(action) {
-        if (action.type === 'GET_STATE') {
-            return this._state;
-        } else if (action.type === 'OPEN_USER_EDITOR'){
-            let url = action.id ? `/users/edit?id=${action.id}` : `/users/edit`;
-            action.navigate(url);
-        }
+        this._state.workspace.users =  userEditReducer(this._state.workspace.users, action);
+        this._state.workspace.users =  usersPageReducer(this._state.workspace.users, action);
+
+        this._listener();
     }
 };
 
