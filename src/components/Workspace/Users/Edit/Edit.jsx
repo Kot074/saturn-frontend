@@ -1,33 +1,13 @@
 import React from "react";
 import styles from "./Edit.module.css";
 import Button from "../../../common/Button/Button";
-import {useSearchParams} from "react-router-dom";
 import Textbox from "../../../common/Textbox/Textbox";
-import {
-    getChangeCurrentUserLastnameAction,
-    getChangeCurrentUserNameAction, getChangeCurrentUserPatronymicAction,
-    getCurrentUserFromUrlAction, getInitNewUserAction
-} from "../../../../redux/userEditReducer";
+import {useSearchParams} from "react-router-dom";
 
 const Edit = (props) => {
     const [params] = useSearchParams();
     const currentId = params.get('id');
-    if (!currentId && props.currentUser.id !== 0) {
-        props.dispatch(getInitNewUserAction());
-    } else if (currentId && props.currentUser.id.toString() !== currentId){
-        props.dispatch(getCurrentUserFromUrlAction(currentId, props.users))
-    }
-
-    const onChangeLastname = (text) => {
-        props.dispatch(getChangeCurrentUserLastnameAction(text));
-    }
-    const onChangeName = (text) => {
-        props.dispatch(getChangeCurrentUserNameAction(text));
-    }
-    const onChangePatronymic = (text) => {
-        props.dispatch(getChangeCurrentUserPatronymicAction(text));
-    }
-
+    props.initialize(currentId);
     return (
         <div className={styles.body}>
             <div className={styles.header}>
@@ -41,19 +21,19 @@ const Edit = (props) => {
                     <div>
                         Фамилия:
                     </div>
-                    <Textbox value={props.currentUser.lastname} onChange={onChangeLastname}/>
+                    <Textbox value={props.currentUser.lastname} onChange={props.onChangeLastname}/>
                 </div>
                 <div className={styles.item}>
                     <div>
                         Имя:
                     </div>
-                    <Textbox value={ props.currentUser.name} onChange={onChangeName}/>
+                    <Textbox value={ props.currentUser.name} onChange={props.onChangeName}/>
                 </div>
                 <div className={styles.item}>
                     <div>
                         Отчество:
                     </div>
-                    <Textbox value={props.currentUser.patronymic} onChange={onChangePatronymic}/>
+                    <Textbox value={props.currentUser.patronymic} onChange={props.onChangePatronymic}/>
                 </div>
             </div>
         </div>

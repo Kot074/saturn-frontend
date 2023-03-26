@@ -3,12 +3,12 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import Workspace from "../Workspace/Workspace";
 
-function App(props) {
+function App() {
   return (
     <div className="App">
       <Header/>
       <Sidebar/>
-      <Workspace data={props.state} dispatch={props.dispatch} />
+      <Workspace />
     </div>
 
       // <div className='LoginWrapper'>
