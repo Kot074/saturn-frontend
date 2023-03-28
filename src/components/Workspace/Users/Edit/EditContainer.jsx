@@ -4,34 +4,37 @@ import {
     getChangeCurrentUserNameAction, getChangeCurrentUserPatronymicAction,
     getCurrentUserFromUrlAction, getInitNewUserAction
 } from "../../../../redux/userEditReducer";
-import StoreContext from "../../../../store-context";
 import Edit from "./Edit";
+import {connect} from "react-redux";
 
-const EditContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                const init = (currentId) => {
-                    if (!currentId && store.getState().editingUser.id !== 0) {
-                        store.dispatch(getInitNewUserAction());
-                    } else if (currentId && store.getState().editingUser.id.toString() !== currentId){
-                        store.dispatch(getCurrentUserFromUrlAction(currentId, store.getState().users.data))
-                    }
-                }
-
-                const onChangeLastname = (text) => {
-                    store.dispatch(getChangeCurrentUserLastnameAction(text));
-                }
-                const onChangeName = (text) => {
-                    store.dispatch(getChangeCurrentUserNameAction(text));
-                }
-                const onChangePatronymic = (text) => {
-                    store.dispatch(getChangeCurrentUserPatronymicAction(text));
-                }
-                return <Edit initialize={init} currentUser={store.getState().editingUser} onChangeLastname={onChangeLastname} onChangeName={onChangeName} onChangePatronymic={onChangePatronymic} />
-            }}
-        </StoreContext.Consumer>
-    )
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.editingUser,
+        users: state.users,
+    }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        initialize: (currentId, editingUser, users) => {
+                if (!currentId && editingUser.id !== 0) {
+                    dispatch(getInitNewUserAction());
+                } else if (currentId && editingUser.id.toString() !== currentId){
+                    dispatch(getCurrentUserFromUrlAction(currentId, users.data))
+                }
+            },
+        onChangeLastname: (text) => {
+                dispatch(getChangeCurrentUserLastnameAction(text));
+            },
+        onChangeName: (text) => {
+                dispatch(getChangeCurrentUserNameAction(text));
+            },
+        onChangePatronymic: (text) => {
+                dispatch(getChangeCurrentUserPatronymicAction(text));
+            }
+    }
+}
+
+const EditContainer = connect(mapStateToProps, mapDispatchToProps)(Edit);
 
 export default EditContainer;

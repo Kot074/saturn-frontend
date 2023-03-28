@@ -1,28 +1,25 @@
 import React from "react";
 import {getOpenUserEditorAction} from "../../../redux/usersPageReducer";
 import Users from "./Users";
-import StoreContext from "../../../store-context";
+import {connect} from "react-redux";
 
-const UsersContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    const selectUser = (navigate, user) => {
-                        store.dispatch(getOpenUserEditorAction(navigate, user.id));
-                    };
-                    const createUser = (navigate) => {
-                        store.dispatch(getOpenUserEditorAction(navigate));
-                    };
-
-                    return (
-                        <Users onSelectUser={selectUser} onCreateUser={createUser}
-                           users={store.getState().users}/>
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    )
+let mapStateToProps = (state) => {
+    return {
+        users: state.users
+    }
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        onSelectUser: (navigate, user) => {
+            dispatch(getOpenUserEditorAction(navigate, user.id));
+        },
+        onCreateUser: (navigate) => {
+            dispatch(getOpenUserEditorAction(navigate));
+        }
+    }
+}
+
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
 
 export default UsersContainer;

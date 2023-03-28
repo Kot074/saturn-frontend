@@ -7,7 +7,8 @@ import {useSearchParams} from "react-router-dom";
 const Edit = (props) => {
     const [params] = useSearchParams();
     const currentId = params.get('id');
-    props.initialize(currentId);
+    props.initialize(currentId, props.currentUser, props.users);
+
     return (
         <div className={styles.body}>
             <div className={styles.header}>
