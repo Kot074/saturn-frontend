@@ -87,9 +87,9 @@ const usersPageReducer = (state = {...initialState}, action) => {
         case types.OPEN_USER_EDITOR:
             let url = action.id ? `/users/edit?id=${action.id}` : `/users/edit`;
             action.navigate(url);
-            return state;
+            return {...state};
         default:
-            return state;
+            return {...state};
     }
 }
 

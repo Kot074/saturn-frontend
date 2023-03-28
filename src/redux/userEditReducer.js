@@ -42,23 +42,18 @@ let initState = {
 const userEditReducer = (state = {...initState}, action) => {
     switch (action.type){
         case types.INIT_NEW_USER:
-            state = {...initState};
-            return state;
+            return {...initState};
         case types.SET_CURRENT_USER_FROM_URL:
             let currentUser = action.currentId ? action.users.find( (user) => user.id.toString() === action.currentId ) : null;
-            state = {...currentUser};
-            return state;
+            return {...currentUser};
         case types.CHANGE_CURRENT_USER_LASTNAME:
-            state.lastname = action.lastname;
-            return state;
+            return {...state, lastname: action.lastname};
         case types.CHANGE_CURRENT_USER_NAME:
-            state.name = action.name;
-            return state;
+            return {...state, name: action.name};
         case types.CHANGE_CURRENT_USER_PATRONYMIC:
-            state.patronymic = action.patronymic;
-            return state;
+            return {...state, patronymic: action.patronymic};
         default:
-            return state;
+            return {...state};
     }
 }
 
