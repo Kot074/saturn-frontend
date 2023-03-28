@@ -82,7 +82,7 @@ let initialState = {
     ]
 };
 
-const usersPageReducer = (state = initialState, action) => {
+const usersPageReducer = (state = {...initialState}, action) => {
     switch (action.type){
         case types.OPEN_USER_EDITOR:
             let url = action.id ? `/users/edit?id=${action.id}` : `/users/edit`;

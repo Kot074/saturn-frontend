@@ -39,14 +39,14 @@ let initState = {
     role: ""
 };
 
-const userEditReducer = (state = initState, action) => {
+const userEditReducer = (state = {...initState}, action) => {
     switch (action.type){
         case types.INIT_NEW_USER:
-            Object.assign(state, {id: 0, name: "", lastname: "", patronymic: "", email: "", phone: "", role: ""});
+            state = {...initState};
             return state;
         case types.SET_CURRENT_USER_FROM_URL:
             let currentUser = action.currentId ? action.users.find( (user) => user.id.toString() === action.currentId ) : null;
-            Object.assign(state, currentUser);
+            state = {...currentUser};
             return state;
         case types.CHANGE_CURRENT_USER_LASTNAME:
             state.lastname = action.lastname;
