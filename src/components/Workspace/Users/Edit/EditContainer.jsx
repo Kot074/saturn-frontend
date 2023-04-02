@@ -2,25 +2,27 @@ import React from "react";
 import {
     getChangeCurrentUserLastnameAction,
     getChangeCurrentUserNameAction, getChangeCurrentUserPatronymicAction,
-    getCurrentUserFromUrlAction, getInitNewUserAction
+    getInitNewUserAction, getSetCurrentUserAction
 } from "../../../../redux/userEditReducer";
 import Edit from "./Edit";
 import {connect} from "react-redux";
+import {getUserById} from "../../../../redux/api";
 
 const mapStateToProps = (state) => {
     return {
-        currentUser: state.editingUser,
-        users: state.users,
+        currentUser: state.editingUser
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        initialize: (currentId, editingUser, users) => {
+        initialize: (currentId, editingUser) => {
                 if (!currentId && editingUser.id !== 0) {
                     dispatch(getInitNewUserAction());
                 } else if (currentId && editingUser.id.toString() !== currentId){
-                    dispatch(getCurrentUserFromUrlAction(currentId, users.data))
+                    getUserById(currentId).then(response => {
+                        dispatch(getSetCurrentUserAction(response.data))
+                    })
                 }
             },
         onChangeLastname: (text) => {

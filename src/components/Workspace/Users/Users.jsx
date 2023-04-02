@@ -5,6 +5,10 @@ import {useNavigate} from "react-router-dom";
 import Button from "../../common/Button/Button";
 
 const Users = (props) => {
+    if (!props.data.isInit) {
+        props.onInitialization();
+    }
+
     const navigate = useNavigate();
     const onCreateUser = () => {
         props.onCreateUser(navigate);
@@ -21,7 +25,7 @@ const Users = (props) => {
                 </div>
             </div>
             <div className={styles.content}>
-                <Table settings={props.users.tableSettings} data={props.users.data} selectRow={onSelectUser}/>
+                <Table settings={props.data.tableSettings} data={props.data.users} selectRow={onSelectUser}/>
             </div>
         </div>
     )

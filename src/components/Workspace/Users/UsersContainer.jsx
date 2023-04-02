@@ -1,11 +1,12 @@
 import React from "react";
-import {getOpenUserEditorAction} from "../../../redux/usersPageReducer";
+import {getInitializationAction, getOpenUserEditorAction} from "../../../redux/usersPageReducer";
 import Users from "./Users";
 import {connect} from "react-redux";
+import {getUsers} from "../../../redux/api";
 
 let mapStateToProps = (state) => {
     return {
-        users: state.users
+        data: state.users
     }
 }
 
@@ -16,7 +17,12 @@ let mapDispatchToProps = (dispatch) => {
         },
         onCreateUser: (navigate) => {
             dispatch(getOpenUserEditorAction(navigate));
-        }
+        },
+        onInitialization: () => {
+            getUsers().then((response) => {
+                dispatch(getInitializationAction(response.data))
+            })
+        },
     }
 }
 

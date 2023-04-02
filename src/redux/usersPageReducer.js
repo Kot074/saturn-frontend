@@ -1,8 +1,10 @@
 export const types = {
+    INITIALIZATION: "INITIALIZATION",
     OPEN_USER_EDITOR: 'OPEN_USER_EDITOR',
 }
 
 export const getOpenUserEditorAction = (navigate, id = null) => ({type: types.OPEN_USER_EDITOR, navigate: navigate, id: id})
+export const getInitializationAction = (users) => ({ type: types.INITIALIZATION, users: users });
 
 let initialState = {
     tableSettings: [
@@ -42,48 +44,14 @@ let initialState = {
             width: ""
         },
     ],
-    data: [
-        {
-            id: 1,
-            name: "Константин",
-            lastname: "Шарыгин",
-            patronymic: "Владимирович",
-            email: "kot.074@mail.ru",
-            phone: "8 (905) 485-16-58",
-            role: "Administrator"
-        },
-        {
-            id: 2,
-            name: "Александр",
-            lastname: "Сидоров",
-            patronymic: "Михайлович",
-            email: "a.sidorov@mail.ru",
-            phone: "8 (555) 555-55-55",
-            role: "Administrator"
-        },
-        {
-            id: 3,
-            name: "Петр",
-            lastname: "Петров",
-            patronymic: "Петрович",
-            email: "p.petrov@mail.ru",
-            phone: "8 (999) 000-00-00",
-            role: "User"
-        },
-        {
-            id: 4,
-            name: "Иван",
-            lastname: "Иванов",
-            patronymic: "Иванович",
-            email: "i.ivanov@mail.ru",
-            phone: "8 (222) 222-22-22",
-            role: "Guest"
-        },
-    ]
+    users: [],
+    isInit: false,
 };
 
 const usersPageReducer = (state = {...initialState}, action) => {
     switch (action.type){
+        case types.INITIALIZATION:
+                return {...state, users: [...action.users] ?? [], isInit: true };
         case types.OPEN_USER_EDITOR:
             let url = action.id ? `/users/edit?id=${action.id}` : `/users/edit`;
             action.navigate(url);

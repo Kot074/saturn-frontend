@@ -3,11 +3,12 @@ import styles from "./Edit.module.css";
 import Button from "../../../common/Button/Button";
 import Textbox from "../../../common/Textbox/Textbox";
 import {useSearchParams} from "react-router-dom";
+import Select from "../../../common/Select/Select";
 
 const Edit = (props) => {
     const [params] = useSearchParams();
     const currentId = params.get('id');
-    props.initialize(currentId, props.currentUser, props.users);
+    props.initialize(currentId, props.currentUser);
 
     return (
         <div className={styles.body}>
@@ -35,6 +36,12 @@ const Edit = (props) => {
                         Отчество:
                     </div>
                     <Textbox value={props.currentUser.patronymic} onChange={props.onChangePatronymic}/>
+                </div>
+                <div className={styles.item}>
+                    <div>
+                        Роль:
+                    </div>
+                    <Select />
                 </div>
             </div>
         </div>
