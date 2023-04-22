@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Users.module.css";
 import Table from "../../common/Table/Table";
 import {useNavigate} from "react-router-dom";
-import Button from "../../common/Button/Button";
+import SaturnButton from "../../common/SaturnButton/SaturnButton";
 
 const Users = (props) => {
     if (!props.data.isInit) {
@@ -21,7 +21,7 @@ const Users = (props) => {
             <div className={styles.header}>
                 <div>Пользователи</div>
                 <div>
-                    <Button value='Добавить' onClick={onCreateUser} />
+                    <SaturnButton value='Добавить' onClick={onCreateUser} />
                 </div>
             </div>
             <div className={styles.content}>

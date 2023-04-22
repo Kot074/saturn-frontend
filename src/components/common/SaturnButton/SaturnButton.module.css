@@ -2,14 +2,8 @@
     width: 150px;
     height: 40px;
 
-    background-color: royalblue;
-    color: whitesmoke;
-
     font-size: 16px;
     letter-spacing: 1px;
-
-    border-color: transparent;
-    border-radius: 5px;
 
     cursor: pointer;
 }

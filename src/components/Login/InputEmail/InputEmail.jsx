@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './InputEmail.module.css';
-import Textbox from "../../common/Textbox/Textbox";
+import Textbox from "../../common/SaturnInput/SaturnInput";
 
 const InputEmail = () => {
     return (

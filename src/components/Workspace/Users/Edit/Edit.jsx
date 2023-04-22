@@ -1,51 +1,74 @@
 import React from "react";
 import styles from "./Edit.module.css";
-import Button from "../../../common/Button/Button";
-import Textbox from "../../../common/Textbox/Textbox";
-import {useSearchParams} from "react-router-dom";
-import Select from "../../../common/Select/Select";
+import SaturnButton from "../../../common/SaturnButton/SaturnButton";
+import SaturnInput from "../../../common/SaturnInput/SaturnInput";
+import SaturnSelect from "../../../common/SaturnSelect/SaturnSelect";
 
-const Edit = (props) => {
-    const [params] = useSearchParams();
-    const currentId = params.get('id');
-    props.initialize(currentId, props.currentUser);
+class Edit extends React.Component {
+    componentDidMount() {
+        const params = new URLSearchParams(window.location.search)
+        let pathId = params.get('id');
+        this.props.initialize(pathId, this.props.currentUser);
+    }
 
-    return (
-        <div className={styles.body}>
-            <div className={styles.header}>
-                <div>{`${props.currentUser.lastname ?? ''} ${props.currentUser.name ?? ''} ${props.currentUser.patronymic ?? ''}`} </div>
-                <div>
-                    <Button value='Сохранить' onClick={() => {console.log('User was saved!');}} />
+    render() {
+        debugger;
+        return (
+            <div className={styles.body}>
+                <div className={styles.header}>
+                    <div>{`${this.props.currentUser.lastname ?? ''} ${this.props.currentUser.name ?? ''} ${this.props.currentUser.patronymic ?? ''}`} </div>
+                    <div>
+                        <SaturnButton value='Сохранить' onClick={() => {this.props.onSave();}} />
+                    </div>
+                </div>
+                <div className={styles.content}>
+                    <div className={styles.item}>
+                        <div>
+                            Фамилия:
+                        </div>
+                        <SaturnInput value={this.props.currentUser.lastname} onChange={this.props.onChangeLastname}/>
+                    </div>
+                    <div className={styles.item}>
+                        <div>
+                            Имя:
+                        </div>
+                        <SaturnInput value={ this.props.currentUser.name} onChange={this.props.onChangeName}/>
+                    </div>
+                    <div className={styles.item}>
+                        <div>
+                            Отчество:
+                        </div>
+                        <SaturnInput value={this.props.currentUser.patronymic} onChange={this.props.onChangePatronymic}/>
+                    </div>
+                    <div className={styles.item}>
+                        <div>
+                            Телефон:
+                        </div>
+                        <SaturnInput mask={'+7 (000) 000-00-00'} placeholder={'+7 (___) ___-__-__'} value={this.props.currentUser.phone} onChange={this.props.onChangePhone}/>
+                    </div>
+                    <div className={styles.item}>
+                        <div>
+                            Роль:
+                        </div>
+                        <SaturnSelect placeHolder={'Укажите роль'} options={this.props.items} selectedOption={this.props.currentUser.role} onSelect={this.props.onSelectRole} />
+                    </div>
+                    <div></div>
+                    <div className={styles.item}>
+                        <div>
+                            Email:
+                        </div>
+                        <SaturnInput value={this.props.currentUser.email} onChange={this.props.onChangeEmail}/>
+                    </div>
+                    <div className={styles.item}>
+                        <div>
+                            Пароль:
+                        </div>
+                        <SaturnInput autoComplete={'new-password'} isSecret value={this.props.currentUser.password ?? ''} onChange={this.props.onChangePassword}/>
+                    </div>
                 </div>
             </div>
-            <div className={styles.content}>
-                <div className={styles.item}>
-                    <div>
-                        Фамилия:
-                    </div>
-                    <Textbox value={props.currentUser.lastname} onChange={props.onChangeLastname}/>
-                </div>
-                <div className={styles.item}>
-                    <div>
-                        Имя:
-                    </div>
-                    <Textbox value={ props.currentUser.name} onChange={props.onChangeName}/>
-                </div>
-                <div className={styles.item}>
-                    <div>
-                        Отчество:
-                    </div>
-                    <Textbox value={props.currentUser.patronymic} onChange={props.onChangePatronymic}/>
-                </div>
-                <div className={styles.item}>
-                    <div>
-                        Роль:
-                    </div>
-                    <Select />
-                </div>
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Edit;

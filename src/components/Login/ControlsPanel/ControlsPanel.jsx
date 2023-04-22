@@ -1,12 +1,12 @@
 import React from "react";
 import styles from './ControlsPanel.module.css';
-import Button from "../../common/Button/Button";
+import SaturnButton from "../../common/SaturnButton/SaturnButton";
 
 const ControlsPanel = () => {
     return (
         <div className={styles.container}>
             <div></div>
-            <Button value="Войти" />
+            <SaturnButton value="Войти" />
         </div>
     )
 }
