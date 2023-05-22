@@ -32,7 +32,7 @@ const Edit = () => {
                         <SaturnButton
                             value='Сохранить'
                             onClick={() => {
-                                dispatch(() => r.saveUserAction(state.currentUser, navigate));
+                                dispatch(r.saveUserAction(state.currentUser, navigate));
                             }} />
                     </div>
                 </div>

@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./Users.module.css";
 import Table from "../../common/Table/Table";
 import {useNavigate} from "react-router-dom";
 import SaturnButton from "../../common/SaturnButton/SaturnButton";
 
 const Users = (props) => {
-    if (!props.data.isInit) {
+
+    useEffect(() => {
         props.onInitialization();
-    }
+    }, [props.data.users]);
 
     const navigate = useNavigate();
     const onCreateUser = () => {

@@ -111,7 +111,7 @@ export const reducer = (state, action) => {
         case types.SAVE_USER:
             saveUser(action.user).then(() => {});
             action.navigate('/users');
-            break;
+            return {...state};
         default:
             return {...state};
     }
