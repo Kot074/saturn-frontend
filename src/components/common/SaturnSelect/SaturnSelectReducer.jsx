@@ -1,4 +1,4 @@
-export let types = {
+export const types = {
     INITIALIZE: "INITIALIZE",
     SELECT_ITEM: "SELECT_ITEM",
 }
@@ -12,10 +12,10 @@ export let state = {
     wasLoaded: false
 }
 
-export let getInitializeAction = (items, selectedItem) => ({type: types.INITIALIZE, items: items, selectedItem: selectedItem});
-export let getSelectItemAction = (item) => ({type: types.SELECT_ITEM, item: item});
+export const getInitializeAction = (items, selectedItem) => ({type: types.INITIALIZE, items: items, selectedItem: selectedItem});
+export const getSelectItemAction = (item) => ({type: types.SELECT_ITEM, item: item});
 
-export let reducer = (state, action) => {
+export const reducer = (state, action) => {
     let selected = null;
     switch (action.type){
         case types.INITIALIZE:

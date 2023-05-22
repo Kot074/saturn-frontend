@@ -53,7 +53,7 @@ const usersPageReducer = (state = {...initialState}, action) => {
         case types.INITIALIZATION:
                 return {...state, users: [...action.users] ?? [], isInit: true };
         case types.OPEN_USER_EDITOR:
-            let url = action.id ? `/users/edit?id=${action.id}` : `/users/edit`;
+            let url = action.id ? `/users/edit/${action.id}` : `/users/edit`;
             action.navigate(url);
             return {...state};
         default:

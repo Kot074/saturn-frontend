@@ -1,14 +1,14 @@
-import React, {useReducer} from "react";
+import React, {useEffect, useReducer} from "react";
 import styles from './SaturnSelect.module.css';
 import * as reducer from "./SaturnSelectReducer";
 import {Select} from "antd";
 
 const SaturnSelect = (props) => {
     const [state, dispatch] = useReducer(reducer.reducer, reducer.state)
-    debugger;
-    if (props.options.length !== state.items.length ) {
+
+    useEffect(() => {
         dispatch(reducer.getInitializeAction(props.options, props.selectedOption));
-    }
+    }, [props])
 
     const onSelect = (value) => {
         let selected = state.items.find(item => item.value === value);
@@ -18,7 +18,7 @@ const SaturnSelect = (props) => {
     return (
         <Select className={styles.input}
                 showSearch
-                placeholder={props.placeHolder}
+                placeholder={props.placeHolder ?? ''}
                 optionFilterProp={'children'}
                 filterOption={(input, option) => (option?.label ?? '').includes(input)}
                 value={state.selectedItem}

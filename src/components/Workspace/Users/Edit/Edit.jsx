@@ -1,24 +1,39 @@
-import React from "react";
+import React, {useEffect, useReducer} from "react";
 import styles from "./Edit.module.css";
+import * as r from "./EditReducer";
+import {useNavigate, useParams} from "react-router-dom";
 import SaturnButton from "../../../common/SaturnButton/SaturnButton";
+import {getRoles, getUserById} from "../../../../redux/api";
 import SaturnInput from "../../../common/SaturnInput/SaturnInput";
 import SaturnSelect from "../../../common/SaturnSelect/SaturnSelect";
 
-class Edit extends React.Component {
-    componentDidMount() {
-        const params = new URLSearchParams(window.location.search)
-        let pathId = params.get('id');
-        this.props.initialize(pathId, this.props.currentUser);
-    }
+const Edit = () => {
+    const [state, dispatch] = useReducer(r.reducer, null, () => r.state);
+    const params = useParams();
+    const navigate = useNavigate();
+    useEffect(() => {
+        getRoles().then((roleResponse) => {
+            const roles = roleResponse.data;
+            dispatch(r.setRolesAction(roles));
 
-    render() {
-        debugger;
-        return (
+            if (params.userId) {
+                getUserById(params.userId).then((userResponse) => {
+                    dispatch(r.setUserAction(userResponse.data));
+                })
+            }
+        })
+    }, [params.userId]);
+
+    return (
             <div className={styles.body}>
                 <div className={styles.header}>
-                    <div>{`${this.props.currentUser.lastname ?? ''} ${this.props.currentUser.name ?? ''} ${this.props.currentUser.patronymic ?? ''}`} </div>
+                    <div>{`${state.currentUser.lastname ?? ''} ${state.currentUser.name ?? ''} ${state.currentUser.patronymic ?? ''}`} </div>
                     <div>
-                        <SaturnButton value='Сохранить' onClick={() => {this.props.onSave();}} />
+                        <SaturnButton
+                            value='Сохранить'
+                            onClick={() => {
+                                dispatch(() => r.saveUserAction(state.currentUser, navigate));
+                            }} />
                     </div>
                 </div>
                 <div className={styles.content}>
@@ -26,49 +41,63 @@ class Edit extends React.Component {
                         <div>
                             Фамилия:
                         </div>
-                        <SaturnInput value={this.props.currentUser.lastname} onChange={this.props.onChangeLastname}/>
+                        <SaturnInput value={state.currentUser.lastname} onChange={(text) => {dispatch(r.changeLastnameAction(text))}}/>
                     </div>
                     <div className={styles.item}>
                         <div>
                             Имя:
                         </div>
-                        <SaturnInput value={ this.props.currentUser.name} onChange={this.props.onChangeName}/>
+                        <SaturnInput value={ state.currentUser.name} onChange={(text) => {dispatch(r.changeNameAction(text))}}/>
                     </div>
                     <div className={styles.item}>
                         <div>
                             Отчество:
                         </div>
-                        <SaturnInput value={this.props.currentUser.patronymic} onChange={this.props.onChangePatronymic}/>
+                        <SaturnInput value={state.currentUser.patronymic} onChange={(text) => {dispatch(r.changePatronymicAction(text))}}/>
+                    </div>
+                    <div className={styles.item}>
+                        <div>
+                            Email:
+                        </div>
+                        <SaturnInput value={state.currentUser.email} onChange={(text) => {dispatch(r.changeEmailAction(text))}}/>
                     </div>
                     <div className={styles.item}>
                         <div>
                             Телефон:
                         </div>
-                        <SaturnInput mask={'+7 (000) 000-00-00'} placeholder={'+7 (___) ___-__-__'} value={this.props.currentUser.phone} onChange={this.props.onChangePhone}/>
+                        {/*
+                            TODO: Необходимо исправить данное поле, чтобы вводить номер телефона по маске.
+                            На текущий момент, при использовании antd-mask-input поле очищалось, при вводе данных
+                            в другие поля.
+                        */}
+                        <SaturnInput
+                            value={state.currentUser.phone}
+                            placeholder={'Введите номер телефона'}
+                            onChange={(text) => {dispatch(r.changePhoneAction(text))}}/>
                     </div>
                     <div className={styles.item}>
                         <div>
                             Роль:
                         </div>
-                        <SaturnSelect placeHolder={'Укажите роль'} options={this.props.items} selectedOption={this.props.currentUser.role} onSelect={this.props.onSelectRole} />
-                    </div>
-                    <div></div>
-                    <div className={styles.item}>
-                        <div>
-                            Email:
-                        </div>
-                        <SaturnInput value={this.props.currentUser.email} onChange={this.props.onChangeEmail}/>
+                        <SaturnSelect
+                            selectedOption={state.currentUser.role}
+                            options={state.roles ?? []}
+                            placeHolder={'Выберите роль'}
+                            onSelect={(selected) => {dispatch(r.changeRoleAction(selected.label))}}/>
                     </div>
                     <div className={styles.item}>
                         <div>
                             Пароль:
                         </div>
-                        <SaturnInput autoComplete={'new-password'} isSecret value={this.props.currentUser.password ?? ''} onChange={this.props.onChangePassword}/>
+                        <SaturnInput
+                            isSecret
+                            autoComplete={'new-password'}
+                            value={state.currentUser.password}
+                            onChange={(text) => {dispatch(r.changePasswordAction(text))}}/>
                     </div>
                 </div>
             </div>
-        )
-    }
+    )
 }
 
 export default Edit;
