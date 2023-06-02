@@ -1,12 +1,11 @@
+import {getUsers} from "../../redux/api";
+
 export const types = {
-    INITIALIZATION: "INITIALIZATION",
-    OPEN_USER_EDITOR: 'OPEN_USER_EDITOR',
+    SET_USERS: 'SET_USERS',
+    EDIT_USER: 'EDIT_USER'
 }
 
-export const getOpenUserEditorAction = (navigate, id = null) => ({type: types.OPEN_USER_EDITOR, navigate: navigate, id: id})
-export const getInitializationAction = (users) => ({ type: types.INITIALIZATION, users: users });
-
-let initialState = {
+export let state = {
     tableSettings: [
         {
             title: "ID",
@@ -44,21 +43,39 @@ let initialState = {
             width: ""
         },
     ],
-    users: [],
-    isInit: false,
-};
+    users: []
+}
 
-const usersPageReducer = (state = {...initialState}, action) => {
-    switch (action.type){
-        case types.INITIALIZATION:
-                return {...state, users: [...action.users] ?? [], isInit: true };
-        case types.OPEN_USER_EDITOR:
-            let url = action.id ? `/users/edit/${action.id}` : `/users/edit`;
-            action.navigate(url);
-            return {...state};
-        default:
-            return {...state};
+export const setUsers = (users) => ({
+    type: types.SET_USERS,
+    users: users
+})
+
+export const editUser = (userId, navigate) => ({
+    type: types.EDIT_USER,
+    userId: userId,
+    navigate: navigate
+})
+
+export const initialization = () => {
+    return (dispatch) => {
+        getUsers().then(
+            (response) => {
+                dispatch(setUsers(response.data));
+            }
+        )
     }
 }
 
-export default usersPageReducer;
+export const reducer = (state, action) => {
+    switch (action.type){
+        case types.SET_USERS:
+            return {...state, users: action.users}
+        case types.EDIT_USER:
+            let url = action.userId ? `/users/edit/${action.userId}` : `/users/edit`;
+            action.navigate(url);
+            return {...state}
+        default:
+            return {...state}
+    }
+}

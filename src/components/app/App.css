@@ -3,19 +3,7 @@
     width: 1280px;
     margin: 0 auto;
 
-    display: grid;
-
-    grid-template-rows: 100px 1fr;
-    grid-template-columns: 200px 1fr;
-    grid-template-areas:
-          "Header Header"
-          "Sidebar Workspace";
-    grid-gap: 5px;
-}
-
-.LoginWrapper {
-    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+
 }

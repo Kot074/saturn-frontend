@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './ControlsPanel.module.css';
-import SaturnButton from "../../common/SaturnButton/SaturnButton";
+import SaturnButton from "../../Common/SaturnButton/SaturnButton";
 
 const ControlsPanel = () => {
     return (

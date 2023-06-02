@@ -1,6 +1,4 @@
 .sidebar {
-    grid-area: Sidebar;
-
     margin: 25px 0;
     border-right: 2px solid royalblue;
 }

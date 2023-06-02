@@ -2,10 +2,10 @@ import React, {useEffect, useReducer} from "react";
 import styles from "./Edit.module.css";
 import * as r from "./EditReducer";
 import {useNavigate, useParams} from "react-router-dom";
-import SaturnButton from "../../../common/SaturnButton/SaturnButton";
-import {getRoles, getUserById} from "../../../../redux/api";
-import SaturnInput from "../../../common/SaturnInput/SaturnInput";
-import SaturnSelect from "../../../common/SaturnSelect/SaturnSelect";
+import SaturnButton from "../../Common/SaturnButton/SaturnButton";
+import {getRoles, getUserById} from "../../../redux/api";
+import SaturnInput from "../../Common/SaturnInput/SaturnInput";
+import SaturnSelect from "../../Common/SaturnSelect/SaturnSelect";
 
 const Edit = () => {
     const [state, dispatch] = useReducer(r.reducer, null, () => r.state);

@@ -9485,6 +9485,11 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+use-reducer-thunk@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/use-reducer-thunk/-/use-reducer-thunk-1.1.0.tgz#d2ca306b792ff0494645373809da56baac80fa89"
+  integrity sha512-jaeIXb3R+5m/qlrNJ2+uiZQ4xp4qDEZvWR7OSB3SMTFb9yrHRMEpKgL+u3PdEp8SQGGXoCImmUG8rOtAiVnH9g==
+
 use-sync-external-store@^1.0.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz"

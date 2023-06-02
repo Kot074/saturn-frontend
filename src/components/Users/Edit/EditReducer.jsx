@@ -1,4 +1,4 @@
-import {saveUser} from "../../../../redux/api";
+import {saveUser} from "../../../redux/api";
 
 export const types = {
     SET_USER: 'SET_USER',

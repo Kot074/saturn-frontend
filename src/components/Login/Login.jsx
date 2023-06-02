@@ -7,11 +7,13 @@ import ControlsPanel from "./ControlsPanel/ControlsPanel";
 
 const Login = () => {
     return (
-        <div className={styles.Login}>
-            <Logo />
-            <InputEmail />
-            <InputPassword />
-            <ControlsPanel />
+        <div className={styles.container}>
+            <div className={styles.Login}>
+                <Logo />
+                <InputEmail />
+                <InputPassword />
+                <ControlsPanel />
+            </div>
         </div>
     )
 }
