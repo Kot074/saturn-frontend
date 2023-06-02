@@ -1,4 +1,4 @@
-import {saveUser} from "../../../redux/api";
+import {UsersApi} from "../../../Api/UsersApi";
 
 export const types = {
     SET_USER: 'SET_USER',
@@ -109,7 +109,7 @@ export const reducer = (state, action) => {
             currentUser.password = action.password;
             return {...state, currentUser: {...currentUser}};
         case types.SAVE_USER:
-            saveUser(action.user).then(() => {});
+            UsersApi.saveUser(action.user).then(() => {});
             action.navigate('/users');
             return {...state};
         default:

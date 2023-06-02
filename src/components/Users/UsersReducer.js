@@ -1,4 +1,4 @@
-import {getUsers} from "../../redux/api";
+import {UsersApi} from "../../Api/UsersApi";
 
 export const types = {
     SET_USERS: 'SET_USERS',
@@ -59,7 +59,7 @@ export const editUser = (userId, navigate) => ({
 
 export const initialization = () => {
     return (dispatch) => {
-        getUsers().then(
+        UsersApi.getUsers().then(
             (response) => {
                 dispatch(setUsers(response.data));
             }

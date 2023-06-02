@@ -3,21 +3,21 @@ import styles from "./Edit.module.css";
 import * as r from "./EditReducer";
 import {useNavigate, useParams} from "react-router-dom";
 import SaturnButton from "../../Common/SaturnButton/SaturnButton";
-import {getRoles, getUserById} from "../../../redux/api";
 import SaturnInput from "../../Common/SaturnInput/SaturnInput";
 import SaturnSelect from "../../Common/SaturnSelect/SaturnSelect";
+import {UsersApi} from "../../../Api/UsersApi";
 
 const Edit = () => {
     const [state, dispatch] = useReducer(r.reducer, null, () => r.state);
     const params = useParams();
     const navigate = useNavigate();
     useEffect(() => {
-        getRoles().then((roleResponse) => {
+        UsersApi.getRoles().then((roleResponse) => {
             const roles = roleResponse.data;
             dispatch(r.setRolesAction(roles));
 
             if (params.userId) {
-                getUserById(params.userId).then((userResponse) => {
+                UsersApi.getUserById(params.userId).then((userResponse) => {
                     dispatch(r.setUserAction(userResponse.data));
                 })
             }
