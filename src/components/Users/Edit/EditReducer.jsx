@@ -59,6 +59,19 @@ export const saveUserAction = (user, navigate) => ({
     navigate: navigate,
 });
 
+export const initialization = (userId) => (dispatch) => {
+    UsersApi.getRoles().then((roleResponse) => {
+        const roles = roleResponse.data;
+        dispatch(setRolesAction(roles));
+
+        if (userId) {
+            UsersApi.getUserById(userId).then((userResponse) => {
+                dispatch(setUserAction(userResponse.data));
+            })
+        }
+    })
+}
+
 export let state = {
     currentUser: {
         lastname: '',

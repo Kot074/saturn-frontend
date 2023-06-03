@@ -1,27 +1,19 @@
-import React, {useEffect, useReducer} from "react";
+import React, {useEffect} from "react";
 import styles from "./Edit.module.css";
 import * as r from "./EditReducer";
 import {useNavigate, useParams} from "react-router-dom";
 import SaturnButton from "../../Common/SaturnButton/SaturnButton";
 import SaturnInput from "../../Common/SaturnInput/SaturnInput";
 import SaturnSelect from "../../Common/SaturnSelect/SaturnSelect";
-import {UsersApi} from "../../../Api/UsersApi";
+import useReducerWithThunk from "use-reducer-thunk";
+import {initialization} from "./EditReducer";
 
 const Edit = () => {
-    const [state, dispatch] = useReducer(r.reducer, null, () => r.state);
+    const [state, dispatch] = useReducerWithThunk(r.reducer, r.state);
     const params = useParams();
     const navigate = useNavigate();
     useEffect(() => {
-        UsersApi.getRoles().then((roleResponse) => {
-            const roles = roleResponse.data;
-            dispatch(r.setRolesAction(roles));
-
-            if (params.userId) {
-                UsersApi.getUserById(params.userId).then((userResponse) => {
-                    dispatch(r.setUserAction(userResponse.data));
-                })
-            }
-        })
+        dispatch(initialization(params.userId));
     }, [params.userId]);
 
     return (
