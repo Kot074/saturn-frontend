@@ -1,10 +1,17 @@
 import axios from "axios";
 
-export const setToken = (newToken) => {
-    localStorage.setItem('auth-token', newToken);
+export const setCurrentUser = (currentUser) => {
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
 }
 
-const getToken = () => localStorage.getItem('auth-token');
+export const getCurrentUser = () => {
+    const userData = localStorage.getItem('currentUser');
+
+    if (userData === null)
+        return {token: ''};
+
+    return JSON.parse(userData);
+}
 
 const instance = axios.create({
     baseURL:  'http://localhost:7400/api/users/',
@@ -17,7 +24,7 @@ export class UsersApi {
     static getRoles() {
         return instance.get('getRoles', {
             headers: {
-                Authorization: `Bearer ${getToken()}`
+                Authorization: `Bearer ${getCurrentUser().token}`
             }
         });
     }
@@ -25,7 +32,7 @@ export class UsersApi {
     static getUsers() {
         return instance.get('getall', {
             headers: {
-                Authorization: `Bearer ${getToken()}`
+                Authorization: `Bearer ${getCurrentUser().token}`
             }
         });
     }
@@ -33,7 +40,7 @@ export class UsersApi {
     static getUserById(id) {
         return instance.get(`get?id=${id}`, {
             headers: {
-                Authorization: `Bearer ${getToken()}`
+                Authorization: `Bearer ${getCurrentUser().token}`
             }
         });
     }
@@ -42,7 +49,7 @@ export class UsersApi {
         let method = user.id > 0 ? 'update' : 'create';
         return instance.post(method, user, {
             headers: {
-                Authorization: `Bearer ${getToken()}`
+                Authorization: `Bearer ${getCurrentUser().token}`
             }
         });
     }

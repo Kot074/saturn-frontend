@@ -2,14 +2,14 @@ import React from "react";
 import SaturnInput from "../../Common/SaturnInput/SaturnInput";
 import SaturnButton from "../../Common/SaturnButton/SaturnButton";
 import {Form} from "antd";
-import {setToken, UsersApi} from "../../../Api/UsersApi";
+import {setCurrentUser, UsersApi} from "../../../Api/UsersApi";
 import {useNavigate} from "react-router-dom";
 
 const LoginForm = () => {
     const navigate = useNavigate();
     const onSubmit = (data) => {
         UsersApi.loginByEmail(data).then((response) => {
-            setToken(response.data.token);
+            setCurrentUser(response.data);
             navigate(-1);
         });
     }
