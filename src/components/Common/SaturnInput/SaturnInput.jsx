@@ -10,6 +10,7 @@ const SaturnInput = (props) => {
     if (props.isSecret) {
         return (
             <Input.Password
+                {...props}
                 autoComplete={props.autoComplete ?? ''}
                 className={styles.textbox}
                 placeholder={props.placeholder}
@@ -20,6 +21,7 @@ const SaturnInput = (props) => {
     } else {
         return (
             <Input
+                {...props}
                 className={styles.textbox}
                 placeholder={props.placeholder}
                 value={props.value}

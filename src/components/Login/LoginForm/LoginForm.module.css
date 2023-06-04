@@ -1,5 +1,4 @@
-.container {
+.row {
     display: flex;
     justify-content: space-between;
-    margin: 0 25px 25px;
 }
