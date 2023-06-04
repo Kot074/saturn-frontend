@@ -1,0 +1,56 @@
+.block {
+    display: grid;
+    grid-template-areas:
+                "user avatar"
+                "logout avatar";
+
+    grid-template-columns: 1fr 75px;
+    grid-gap: 10px;
+}
+
+.avatar {
+
+    grid-area: avatar;
+    height: 75px;
+    width: 75px;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    justify-self: end;
+    align-self: center;
+}
+
+.avatar img {
+    height: 100%;
+}
+
+.user {
+    grid-area: user;
+
+    justify-self: end;
+    align-self: self-end;
+
+    cursor: pointer;
+}
+
+.user span:hover {
+    color: royalblue;
+    font-weight: bold;
+}
+
+.logout {
+    grid-area: logout;
+    width: 75px;
+
+    text-align: center;
+    justify-self: end;
+    align-self: self-start;
+
+    cursor: pointer;
+}
+
+.logout span:hover {
+    color: royalblue;
+    font-weight: bold;
+}
