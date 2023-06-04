@@ -30,6 +30,7 @@
 
     justify-self: end;
     align-self: self-end;
+    overflow: auto;
 
     cursor: pointer;
 }
