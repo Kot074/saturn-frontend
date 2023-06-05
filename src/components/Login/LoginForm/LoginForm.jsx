@@ -1,9 +1,10 @@
 import React from "react";
 import SaturnInput from "../../Common/SaturnInput/SaturnInput";
 import SaturnButton from "../../Common/SaturnButton/SaturnButton";
-import {Form} from "antd";
+import {Checkbox, Form} from "antd";
 import {setCurrentUser, UsersApi} from "../../../Api/UsersApi";
 import {useNavigate} from "react-router-dom";
+import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -16,36 +17,47 @@ const LoginForm = () => {
     return (
         <Form
             name={'login'}
-            labelCol={{span: 6}}
-            wrapperCol={{span: 16}}
             onFinish={onSubmit}
+            layout={'horizontal'}
         >
-            <Form.Item
-                wrapperCol={{
-                    offset: 2
-                }}
-                label={'E-mail'}
-                name={'email'}
-            >
-                <SaturnInput />
-            </Form.Item>
-            <Form.Item
-                wrapperCol={{
-                    offset: 2
-                }}
-                label={'Пароль'}
-                name={'password'}
-            >
-                <SaturnInput isSecret/>
-            </Form.Item>
-            <Form.Item
-                wrapperCol={{
-                    offset: 8,
-                    span: 16
-                }}
-            >
+            <div className={styles.row}>
+                <Form.Item
+                    wrapperCol={{
+                        offset: 1,
+                        span: 16
+                    }}
+                    label={'E-mail'}
+                    name={'email'}
+                >
+                    <SaturnInput />
+                </Form.Item>
+            </div>
+            <div className={styles.row}>
+                <Form.Item
+                    wrapperCol={{
+                        span: 16
+                    }}
+                    label={'Пароль'}
+                    name={'password'}
+                >
+                    <SaturnInput isSecret/>
+                </Form.Item>
+            </div>
+            <div className={styles.row}>
+                <Form.Item
+                    wrapperCol={{
+                        span: 2
+                    }}
+                    label={'Запомнить'}
+                    name={'remember'}
+                    style={{width: '200px'}}
+                    valuePropName={'checked'}
+                >
+                    <Checkbox />
+                </Form.Item>
                 <SaturnButton value={'Войти'} htmlType={'submit'}/>
-            </Form.Item>
+            </div>
+
         </Form>
     )
 }

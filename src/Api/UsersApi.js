@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export const setCurrentUser = (currentUser) => {
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
 }
 
 export const getCurrentUser = () => {
-    const userData = localStorage.getItem('currentUser');
+    const userData = sessionStorage.getItem('currentUser');
 
     if (userData === null)
         return {token: ''};

@@ -8,7 +8,7 @@ const CurrentUser = () => {
     const navigate = useNavigate();
 
     const onExit = () => {
-        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
         navigate(0);
     }
     const toProfile = () => {
