@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CurrentUser.module.css'
-import {getCurrentUser} from "../../../Api/UsersApi";
+import {forgotingCurrentUser, getCurrentUser} from "../../../Api/UsersApi";
 import {useNavigate} from "react-router-dom";
 
 const CurrentUser = () => {
@@ -8,7 +8,7 @@ const CurrentUser = () => {
     const navigate = useNavigate();
 
     const onExit = () => {
-        sessionStorage.removeItem('currentUser');
+        forgotingCurrentUser();
         navigate(0);
     }
     const toProfile = () => {

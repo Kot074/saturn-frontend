@@ -1,16 +1,28 @@
 import axios from "axios";
 
-export const setCurrentUser = (currentUser) => {
+export const setCurrentUser = (currentUser, isPersistant) => {
+    if (isPersistant){
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    }
     sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
 }
 
 export const getCurrentUser = () => {
-    const userData = sessionStorage.getItem('currentUser');
+    let userData = localStorage.getItem('currentUser');
 
-    if (userData === null)
-        return {token: ''};
+    if (userData === null) {
+        userData = sessionStorage.getItem('currentUser');
+        if (userData === null) {
+            return {token: ''};
+        }
+    }
 
     return JSON.parse(userData);
+}
+
+export const forgotingCurrentUser = () => {
+    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
 }
 
 const instance = axios.create({

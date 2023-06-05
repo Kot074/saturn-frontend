@@ -9,8 +9,9 @@ import styles from './LoginForm.module.css';
 const LoginForm = () => {
     const navigate = useNavigate();
     const onSubmit = (data) => {
+        const isPersistant = data !== null ? data.remember : false;
         UsersApi.loginByEmail(data).then((response) => {
-            setCurrentUser(response.data);
+            setCurrentUser(response.data, isPersistant);
             navigate(-1);
         });
     }
