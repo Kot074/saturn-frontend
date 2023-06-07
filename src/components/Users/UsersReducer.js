@@ -43,7 +43,8 @@ export let state = {
             width: ""
         },
     ],
-    users: []
+    users: [],
+    isFetching: false
 }
 
 export const setUsers = (users) => ({
@@ -70,11 +71,11 @@ export const initialization = () => {
 export const reducer = (state, action) => {
     switch (action.type){
         case types.SET_USERS:
-            return {...state, users: action.users}
+            return {...state, users: action.users, isFetching: true}
         case types.EDIT_USER:
             let url = action.userId ? `/users/edit/${action.userId}` : `/users/edit`;
             action.navigate(url);
-            return {...state}
+            return {...state, isFetching: false}
         default:
             return {...state}
     }

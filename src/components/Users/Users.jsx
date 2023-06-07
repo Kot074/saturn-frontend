@@ -12,7 +12,7 @@ const Users = () => {
     const [state, dispatch] = useReducerWithThunk(r.reducer, r.state);
     useEffect(() => {
         dispatch(initialization());
-    }, [state])
+    }, [state.isFetching])
 
     return (
         <div className={styles.body}>
