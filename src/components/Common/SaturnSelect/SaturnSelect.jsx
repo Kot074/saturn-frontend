@@ -16,7 +16,8 @@ const SaturnSelect = (props) => {
         dispatch(reducer.getSelectItemAction(selected));
     }
     return (
-        <Select className={styles.input}
+        <Select {...props}
+                className={styles.input}
                 showSearch
                 placeholder={props.placeHolder ?? ''}
                 optionFilterProp={'children'}

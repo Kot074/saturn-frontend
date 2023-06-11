@@ -9,6 +9,7 @@ import useReducerWithThunk from "use-reducer-thunk";
 import {initialization} from "./EditReducer";
 import {DeleteOutlined} from "@ant-design/icons";
 import {Popconfirm} from "antd";
+import {getCurrentUser} from "../../../Api/UsersApi";
 
 const Edit = () => {
     const [state, dispatch] = useReducerWithThunk(r.reducer, r.state);
@@ -16,7 +17,8 @@ const Edit = () => {
     const navigate = useNavigate();
     useEffect(() => {
         dispatch(initialization(params.userId));
-    }, []);
+    }, [params.userId]);
+    const currentUser = getCurrentUser();
 
     return (
             <div className={styles.body}>
@@ -25,7 +27,7 @@ const Edit = () => {
                     <div className={styles.buttons}>
                         <div>
                         {
-                            state.currentUser.id &&
+                            state.currentUser.id && state.currentUser.id !== currentUser.id && currentUser.role === "Administrator" &&
                             <Popconfirm
                                 title={'Удаление пользователя'}
                                 placement="bottomRight"
@@ -99,6 +101,7 @@ const Edit = () => {
                         </div>
                         <SaturnSelect
                             selectedOption={state.currentUser.role}
+                            disabled={state.currentUser.id === currentUser.id || currentUser.role !== "Administrator"}
                             options={state.roles ?? []}
                             placeHolder={'Выберите роль'}
                             onSelect={(selected) => {dispatch(r.changeRoleAction(selected.label))}}/>
