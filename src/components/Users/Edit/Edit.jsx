@@ -7,6 +7,8 @@ import SaturnInput from "../../Common/SaturnInput/SaturnInput";
 import SaturnSelect from "../../Common/SaturnSelect/SaturnSelect";
 import useReducerWithThunk from "use-reducer-thunk";
 import {initialization} from "./EditReducer";
+import {DeleteOutlined} from "@ant-design/icons";
+import {Popconfirm} from "antd";
 
 const Edit = () => {
     const [state, dispatch] = useReducerWithThunk(r.reducer, r.state);
@@ -14,18 +16,42 @@ const Edit = () => {
     const navigate = useNavigate();
     useEffect(() => {
         dispatch(initialization(params.userId));
-    }, [params.userId]);
+    }, []);
 
     return (
             <div className={styles.body}>
                 <div className={styles.header}>
                     <div>{`${state.currentUser.lastname ?? ''} ${state.currentUser.name ?? ''} ${state.currentUser.patronymic ?? ''}`} </div>
-                    <div>
+                    <div className={styles.buttons}>
+                        <div>
+                        {
+                            state.currentUser.id &&
+                            <Popconfirm
+                                title={'Удаление пользователя'}
+                                placement="bottomRight"
+                                description={
+                                    `Пользователь ${state.currentUser.lastname} ${state.currentUser.name} ${state.currentUser.patronymic} будет удален.`
+                                }
+                                onConfirm={() => {
+                                    dispatch(r.deleteUserAction(navigate));
+                                }}
+                                okText={'Да'}
+                                cancelText={'Нет'}
+                            >
+                                <SaturnButton
+                                    icon={<DeleteOutlined />}
+                                    style={{backgroundColor: "red"}}
+                                />
+                            </Popconfirm>
+                        }
+                        </div>
+                        <div>
                         <SaturnButton
                             value='Сохранить'
                             onClick={() => {
-                                dispatch(r.saveUserAction(state.currentUser, navigate));
+                                dispatch(r.saveUserAction(navigate));
                             }} />
+                        </div>
                     </div>
                 </div>
                 <div className={styles.content}>

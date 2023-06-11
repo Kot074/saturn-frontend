@@ -25,7 +25,7 @@ const CurrentUser = () => {
                 <img alt={'avatar'} src={'/unknownAvatar.jpeg'}/>
             </div>
             <div className={styles.user}>
-                <span onClick={toProfile}>{currentUser.user ?? ''}</span>
+                <span onClick={toProfile}>{currentUser.shortName ?? ''}</span>
             </div>
             <div className={styles.logout}>
                 <span onClick={onExit}>Выйти</span>

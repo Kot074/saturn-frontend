@@ -15,6 +15,7 @@ export const types = {
     CHANGE_PASSWORD: 'CHANGE_PASSWORD',
 
     SAVE_USER: 'SAVE_USER',
+    DELETE_USER: 'DELETE_USER',
 }
 
 export const setUserAction = (user) => ({
@@ -53,9 +54,12 @@ export const changePasswordAction = (password) => ({
     type: types.CHANGE_PASSWORD,
     password: password
 });
-export const saveUserAction = (user, navigate) => ({
+export const saveUserAction = (navigate) => ({
     type: types.SAVE_USER,
-    user: user,
+    navigate: navigate,
+});
+export const deleteUserAction = (navigate) => ({
+    type: types.DELETE_USER,
     navigate: navigate,
 });
 
@@ -122,8 +126,14 @@ export const reducer = (state, action) => {
             currentUser.password = action.password;
             return {...state, currentUser: {...currentUser}};
         case types.SAVE_USER:
-            UsersApi.saveUser(action.user).then(() => {});
-            action.navigate('/users');
+            if(state.currentUser.id) {
+                UsersApi.updateUser(state.currentUser).then(() => {action.navigate('/users');});
+            } else {
+                UsersApi.createUser(state.currentUser).then(() => {action.navigate('/users');});
+            }
+            return {...state};
+        case types.DELETE_USER:
+            UsersApi.deleteUser(state.currentUser.id).then(() => {action.navigate('/users');});
             return {...state};
         default:
             return {...state};

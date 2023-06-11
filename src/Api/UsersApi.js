@@ -26,7 +26,7 @@ export const forgotingCurrentUser = () => {
 }
 
 const instance = axios.create({
-    baseURL:  'http://localhost:7400/api/users/',
+    baseURL:  'https://localhost:7401/api/',
     headers: {
         'Access-Control-Allow-Origin' : '*'
     }
@@ -34,7 +34,7 @@ const instance = axios.create({
 
 export class UsersApi {
     static getRoles() {
-        return instance.get('getRoles', {
+        return instance.get('users/get_roles', {
             headers: {
                 Authorization: `Bearer ${getCurrentUser().token}`
             }
@@ -42,7 +42,7 @@ export class UsersApi {
     }
 
     static getUsers() {
-        return instance.get('getall', {
+        return instance.get('users/get_users', {
             headers: {
                 Authorization: `Bearer ${getCurrentUser().token}`
             }
@@ -50,16 +50,31 @@ export class UsersApi {
     }
 
     static getUserById(id) {
-        return instance.get(`get?id=${id}`, {
+        return instance.get(`users/get_user?id=${id}`, {
             headers: {
                 Authorization: `Bearer ${getCurrentUser().token}`
             }
         });
     }
 
-    static saveUser(user) {
-        let method = user.id > 0 ? 'update' : 'create';
-        return instance.post(method, user, {
+    static createUser(user) {
+        return instance.post('users/create_user', user, {
+            headers: {
+                Authorization: `Bearer ${getCurrentUser().token}`
+            }
+        });
+    }
+
+    static updateUser(user) {
+        return instance.put('users/update_user', user, {
+            headers: {
+                Authorization: `Bearer ${getCurrentUser().token}`
+            }
+        });
+    }
+
+    static deleteUser(userId) {
+        return instance.delete(`users/delete_user?id=${userId}`, {
             headers: {
                 Authorization: `Bearer ${getCurrentUser().token}`
             }
@@ -67,6 +82,6 @@ export class UsersApi {
     }
 
     static loginByEmail(loginData) {
-        return instance.post("loginByEmail", loginData);
+        return instance.post("login/by_email", loginData);
     }
 }

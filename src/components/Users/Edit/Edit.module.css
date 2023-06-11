@@ -32,3 +32,9 @@
     align-items: center;
     margin: 0 25px 10px 0;
 }
+
+.buttons {
+    display: grid;
+    grid-template-columns: 40px 150px;
+    column-gap: 10px;
+}
