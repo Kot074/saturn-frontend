@@ -15,6 +15,8 @@ const Edit = () => {
     const [state, dispatch] = useReducerWithThunk(r.reducer, r.state);
     const params = useParams();
     const [form] = Form.useForm();
+    const navigate = useNavigate();
+
     let lastname = Form.useWatch('lastname', form);
     let name = Form.useWatch('name', form);
     let patronymic = Form.useWatch('patronymic', form);
@@ -24,8 +26,7 @@ const Edit = () => {
     }, [params.userId]);
 
     const onSubmit = (user) => {
-        console.log("User was uploaded!");
-        console.log(user);
+        dispatch(r.getSaveUserAction(user, params.userId, navigate))
     }
 
     const currentUser = getCurrentUser();
@@ -49,7 +50,7 @@ const Edit = () => {
                                     `Пользователь ${state.user.lastname} ${state.user.name} ${state.user.patronymic} будет удален.`
                                 }
                                 onConfirm={() => {
-                                    console.log('Пользователь удален!')
+                                    dispatch(r.getDeleteUserAction(params.userId, navigate))
                                 }}
                                 okText={'Да'}
                                 cancelText={'Нет'}
@@ -168,6 +169,7 @@ const Edit = () => {
                 <Form.Item
                     name={'password'}
                     label={'Пароль'}
+                    rules={!params.userId && [{required: true, message: 'Поле "Пароль" обязательно для нового пользователя.'}]}
                     labelCol={{
                         xs: {span: 24},
                         sm: {span: 8}
