@@ -7,7 +7,7 @@ const SaturnSelect = (props) => {
     const [state, dispatch] = useReducer(reducer.reducer, reducer.state)
 
     useEffect(() => {
-        dispatch(reducer.getInitializeAction(props.options, props.selectedOption));
+        dispatch(reducer.getInitializeAction(props.options, props.selected_option));
     }, [props])
 
     const onSelect = (value) => {

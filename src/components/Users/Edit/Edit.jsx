@@ -8,116 +8,182 @@ import SaturnSelect from "../../Common/SaturnSelect/SaturnSelect";
 import useReducerWithThunk from "use-reducer-thunk";
 import {initialization} from "./EditReducer";
 import {DeleteOutlined} from "@ant-design/icons";
-import {Popconfirm} from "antd";
+import {Form, Popconfirm} from "antd";
 import {getCurrentUser} from "../../../Api/UsersApi";
 
 const Edit = () => {
     const [state, dispatch] = useReducerWithThunk(r.reducer, r.state);
     const params = useParams();
-    const navigate = useNavigate();
+    const [form] = Form.useForm();
+    let lastname = Form.useWatch('lastname', form);
+    let name = Form.useWatch('name', form);
+    let patronymic = Form.useWatch('patronymic', form);
+
     useEffect(() => {
-        dispatch(initialization(params.userId));
+        dispatch(initialization(params.userId, form));
     }, [params.userId]);
+
+    const onSubmit = (user) => {
+        console.log("User was uploaded!");
+        console.log(user);
+    }
+
     const currentUser = getCurrentUser();
 
-    return (
-            <div className={styles.body}>
-                <div className={styles.header}>
-                    <div>{`${state.currentUser.lastname ?? ''} ${state.currentUser.name ?? ''} ${state.currentUser.patronymic ?? ''}`} </div>
-                    <div className={styles.buttons}>
-                        <div>
+    return(
+        <Form
+            form={form}
+            name={'user_edit'}
+            onFinish={onSubmit}
+        >
+            <div className={styles.header}>
+                <div>{`${lastname ?? ''} ${name ?? ''} ${patronymic ?? ''}`} </div>
+                <div className={styles.buttons}>
+                    <div>
                         {
-                            state.currentUser.id && state.currentUser.id !== currentUser.id && currentUser.role === "Administrator" &&
+                            state.user.id && state.user.id !== currentUser.id && currentUser.role === "Administrator" &&
                             <Popconfirm
                                 title={'Удаление пользователя'}
                                 placement="bottomRight"
                                 description={
-                                    `Пользователь ${state.currentUser.lastname} ${state.currentUser.name} ${state.currentUser.patronymic} будет удален.`
+                                    `Пользователь ${state.user.lastname} ${state.user.name} ${state.user.patronymic} будет удален.`
                                 }
                                 onConfirm={() => {
-                                    dispatch(r.deleteUserAction(navigate));
+                                    console.log('Пользователь удален!')
                                 }}
                                 okText={'Да'}
                                 cancelText={'Нет'}
                             >
                                 <SaturnButton
-                                    icon={<DeleteOutlined />}
+                                    icon={<DeleteOutlined/>}
                                     style={{backgroundColor: "red"}}
                                 />
                             </Popconfirm>
                         }
-                        </div>
-                        <div>
-                        <SaturnButton
-                            value='Сохранить'
-                            onClick={() => {
-                                dispatch(r.saveUserAction(navigate));
-                            }} />
-                        </div>
                     </div>
-                </div>
-                <div className={styles.content}>
-                    <div className={styles.item}>
-                        <div>
-                            Фамилия:
-                        </div>
-                        <SaturnInput value={state.currentUser.lastname} onChange={(text) => {dispatch(r.changeLastnameAction(text))}}/>
-                    </div>
-                    <div className={styles.item}>
-                        <div>
-                            Имя:
-                        </div>
-                        <SaturnInput value={ state.currentUser.name} onChange={(text) => {dispatch(r.changeNameAction(text))}}/>
-                    </div>
-                    <div className={styles.item}>
-                        <div>
-                            Отчество:
-                        </div>
-                        <SaturnInput value={state.currentUser.patronymic} onChange={(text) => {dispatch(r.changePatronymicAction(text))}}/>
-                    </div>
-                    <div className={styles.item}>
-                        <div>
-                            Email:
-                        </div>
-                        <SaturnInput value={state.currentUser.email} onChange={(text) => {dispatch(r.changeEmailAction(text))}}/>
-                    </div>
-                    <div className={styles.item}>
-                        <div>
-                            Телефон:
-                        </div>
-                        {/*
-                            TODO: Необходимо исправить данное поле, чтобы вводить номер телефона по маске.
-                            На текущий момент, при использовании antd-mask-input поле очищалось, при вводе данных
-                            в другие поля.
-                        */}
-                        <SaturnInput
-                            value={state.currentUser.phone}
-                            placeholder={'Введите номер телефона'}
-                            onChange={(text) => {dispatch(r.changePhoneAction(text))}}/>
-                    </div>
-                    <div className={styles.item}>
-                        <div>
-                            Роль:
-                        </div>
-                        <SaturnSelect
-                            selectedOption={state.currentUser.role}
-                            disabled={state.currentUser.id === currentUser.id || currentUser.role !== "Administrator"}
-                            options={state.roles ?? []}
-                            placeHolder={'Выберите роль'}
-                            onSelect={(selected) => {dispatch(r.changeRoleAction(selected.label))}}/>
-                    </div>
-                    <div className={styles.item}>
-                        <div>
-                            Пароль:
-                        </div>
-                        <SaturnInput
-                            isSecret
-                            autoComplete={'new-password'}
-                            value={state.currentUser.password}
-                            onChange={(text) => {dispatch(r.changePasswordAction(text))}}/>
+                    <div>
+                        <SaturnButton value='Сохранить' htmlType={'submit'}/>
                     </div>
                 </div>
             </div>
+            <div className={styles.content}>
+                <Form.Item
+                    name={'lastname'}
+                    rules={[{required: true, message: 'Поле "Фамилия" обязательно для заполнения.'}]}
+                    label={'Фамилия'}
+                    labelCol={{
+                        xs: {span: 24},
+                        sm: {span: 8}
+                    }}
+                    wrapperCol={{
+                        xs: {span: 24},
+                        sm: {span: 16}
+                    }}
+                >
+                    <SaturnInput />
+                </Form.Item>
+                <Form.Item
+                    name={'name'}
+                    rules={[{required: true, message: 'Поле "Имя" обязательно для заполнения.'}]}
+                    label={'Имя'}
+                    labelCol={{
+                        xs: {span: 24},
+                        sm: {span: 8}
+                    }}
+                    wrapperCol={{
+                        xs: {span: 24},
+                        sm: {span: 16}
+                    }}
+                >
+                    <SaturnInput />
+                </Form.Item>
+                <Form.Item
+                    name={'patronymic'}
+                    label={'Отчество'}
+                    labelCol={{
+                        xs: {span: 24},
+                        sm: {span: 8}
+                    }}
+                    wrapperCol={{
+                        xs: {span: 24},
+                        sm: {span: 16}
+                    }}
+                >
+                    <SaturnInput />
+                </Form.Item>
+                <Form.Item
+                    name={'email'}
+                    rules={[{required: true, message: 'Поле "Email" обязательно для заполнения.'}]}
+                    label={'Email'}
+                    labelCol={{
+                        xs: {span: 24},
+                        sm: {span: 8}
+                    }}
+                    wrapperCol={{
+                        xs: {span: 24},
+                        sm: {span: 16}
+                    }}
+                >
+                    <SaturnInput />
+                </Form.Item>
+                <Form.Item
+                    name={'phone'}
+                    rules={[{required: true, message: 'Поле "Телефон" обязательно для заполнения.'}]}
+                    label={'Телефон'}
+                    labelCol={{
+                        xs: {span: 24},
+                        sm: {span: 8}
+                    }}
+                    wrapperCol={{
+                        xs: {span: 24},
+                        sm: {span: 16}
+                    }}
+                >
+                    <SaturnInput />
+                </Form.Item>
+                <Form.Item
+                    name={'role'}
+                    rules={[{required: true, message: 'Поле "Роль" обязательно для заполнения.'}]}
+                    label={'Роль'}
+                    valuePropName={'selected_option'}
+                    labelCol={{
+                        xs: {span: 24},
+                        sm: {span: 8}
+                    }}
+                    wrapperCol={{
+                        xs: {span: 24},
+                        sm: {span: 16}
+                    }}
+                >
+                    <SaturnSelect
+                        selected_option={state.user.role}
+                        options={state.roles ?? []}
+                        placeholder={'Выберите роль'}
+                        disabled={state.user.id === currentUser.id || currentUser.role !== "Administrator"}
+                        onSelect={(selectedItem)=>{
+                            form.setFieldValue('role', selectedItem.label);
+                        }}
+                    />
+                </Form.Item>
+                <Form.Item
+                    name={'password'}
+                    label={'Пароль'}
+                    labelCol={{
+                        xs: {span: 24},
+                        sm: {span: 8}
+                    }}
+                    wrapperCol={{
+                        xs: {span: 24},
+                        sm: {span: 16}
+                    }}
+                >
+                    <SaturnInput
+                        is_secret="true"
+                        autoComplete={'new-password'}
+                    />
+                </Form.Item>
+            </div>
+        </Form>
     )
 }
 

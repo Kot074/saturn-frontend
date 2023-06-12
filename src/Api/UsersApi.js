@@ -26,7 +26,7 @@ export const forgotingCurrentUser = () => {
 }
 
 const instance = axios.create({
-    baseURL:  'https://localhost:7401/api/',
+    baseURL:  'http://localhost:7400/api/',
     headers: {
         'Access-Control-Allow-Origin' : '*'
     }

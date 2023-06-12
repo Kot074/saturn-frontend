@@ -7,6 +7,9 @@
     letter-spacing: 1px;
 
     cursor: pointer;
+
+    background-color: royalblue;
+    color: white;
 }
 
 .button:active {

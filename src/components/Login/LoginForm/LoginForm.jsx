@@ -41,7 +41,7 @@ const LoginForm = () => {
                     label={'Пароль'}
                     name={'password'}
                 >
-                    <SaturnInput isSecret/>
+                    <SaturnInput is_secret={'true'}/>
                 </Form.Item>
             </div>
             <div className={styles.row}>

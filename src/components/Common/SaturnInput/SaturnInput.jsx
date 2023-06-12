@@ -7,7 +7,7 @@ const SaturnInput = (props) => {
         props.onChange(event.target.value);
     }
 
-    if (props.isSecret) {
+    if (props.is_secret) {
         return (
             <Input.Password
                 {...props}
