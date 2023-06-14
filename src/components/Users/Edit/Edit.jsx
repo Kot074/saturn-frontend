@@ -37,6 +37,7 @@ const Edit = () => {
             form={form}
             name={'user_edit'}
             onFinish={onSubmit}
+            validateTrigger={'onSubmit'}
         >
             <div className={styles.header}>
                 <div>{`${lastname ?? ''} ${name ?? ''} ${patronymic ?? ''}`} </div>
@@ -115,7 +116,7 @@ const Edit = () => {
                 </Form.Item>
                 <Form.Item
                     name={'email'}
-                    rules={[{required: true, message: 'Поле "Email" обязательно для заполнения.'}]}
+                    rules={[{required: true, message: 'Поле "Email" обязательно для заполнения.'}, {required: true, type: 'email', message: 'Введен некорректный адрес email.'}]}
                     label={'Email'}
                     labelCol={{
                         xs: {span: 24},
