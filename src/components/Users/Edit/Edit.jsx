@@ -10,6 +10,7 @@ import {initialization} from "./EditReducer";
 import {DeleteOutlined} from "@ant-design/icons";
 import {Form, Popconfirm} from "antd";
 import {getCurrentUser} from "../../../Api/UsersApi";
+import SaturnMaskedInput from "../../Common/SaturnMaskedInput/SaturnMaskedInput";
 
 const Edit = () => {
     const [state, dispatch] = useReducerWithThunk(r.reducer, r.state);
@@ -140,7 +141,10 @@ const Edit = () => {
                         sm: {span: 16}
                     }}
                 >
-                    <SaturnInput />
+                    <SaturnMaskedInput
+                        mask={'+7 (999) 999-99-99'}
+                        onChange={(text) => form.setFieldValue('phone', text)}
+                    />
                 </Form.Item>
                 <Form.Item
                     name={'role'}
