@@ -4,7 +4,9 @@ export const types = {
     INITIALIZATION: "INITIALIZATION",
 
     SAVE_USER: "SAVE_USER",
-    DELETE_USER: "DELETE_USER"
+    DELETE_USER: "DELETE_USER",
+
+    CHANGE_AVATAR: "CHANGE_AVATAR"
 }
 
 // Action creators
@@ -27,6 +29,12 @@ export const getDeleteUserAction = (userId, navigate) => ({
     navigate: navigate
 })
 
+export const getChangeAvatarAction = (base64, form) => ({
+    type: types.CHANGE_AVATAR,
+    base64,
+    form
+})
+
 // Thunks
 export const initialization = (userId, form) => (dispatch) => {
     let roles = [];
@@ -46,6 +54,7 @@ export const initialization = (userId, form) => (dispatch) => {
 
 export let state = {
     user: {
+        avatar: '',
         lastname: '',
         name: '',
         patronymic: '',
@@ -75,6 +84,9 @@ export const reducer = (state, action) => {
             UsersApi.deleteUser(action.userId).then(() => {
                 action.navigate('/users');
             });
+            return state;
+        case types.CHANGE_AVATAR:
+            action.form.setFieldValue('avatar', action.base64);
             return state;
         default:
             return state;

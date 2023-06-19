@@ -1,14 +1,19 @@
 .textbox {
     height: 30px;
-    width: 200px;
     font-size: 16px;
+    width: 100%;
 
-    padding: 0 5px;
+    padding: 0 10px;
 
-    border-radius: 5px;
-    border: 1px solid royalblue;
+    border: none;
 }
 
-.error {
-    border-color: red;
+.textbox:focus{
+    outline: none;
+}
+
+.container {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid royalblue;
 }

@@ -18,20 +18,58 @@
 .content {
     width: 100%;
     margin: 0 0 25px 25px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     gap: 5px;
-}
-
-.important {
-}
-
-.item {
-
 }
 
 .buttons {
     display: grid;
     grid-template-columns: 40px 150px;
     column-gap: 10px;
+}
+
+.main {
+    display: flex;
+    margin: 0 0 25px;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 300px;
+}
+
+.contacts {
+    display: flex;
+}
+
+.additional {
+    display: flex;
+    margin: 0;
+}
+
+.avatar {
+    height: 200px;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    margin: 0 25px 0 0;
+
+    border: 1px solid royalblue;
+}
+
+.avatar:hover{
+    cursor: pointer;
+    transform: scale(0.95);
+    transition-duration: 0.3s;
+}
+
+.avatar img {
+    width: 200px;
+    height: 200px;
+}
+
+.item {
+    margin: 0 25px 0 0;
+    width: 300px;
 }

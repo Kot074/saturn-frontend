@@ -19,6 +19,7 @@ const SaturnSelect = (props) => {
         <Select {...props}
                 className={styles.input}
                 showSearch
+                bordered={false}
                 placeholder={props.placeHolder ?? ''}
                 optionFilterProp={'children'}
                 filterOption={(input, option) => (option?.label ?? '').includes(input)}

@@ -1,12 +1,17 @@
 .textbox {
     height: 30px;
-    width: 200px;
     font-size: 16px;
 
     padding: 0 5px;
 
     border-radius: 5px;
     border: 1px solid royalblue;
+}
+
+.textbox:focus{
+    outline: none;
+    border: 1px solid royalblue;
+    box-shadow: none;
 }
 
 .error {

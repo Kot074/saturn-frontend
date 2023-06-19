@@ -14,12 +14,14 @@ const SaturnMaskedInput = (props) => {
     }
 
     return (
-        <InputMask
-            {...props}
-            className={styles.textbox}
-            onChange={onTextChange}
-            value={valueState}
-        />
+        <div className={styles.container}>
+            <InputMask
+                {...props}
+                className={styles.textbox}
+                onChange={onTextChange}
+                value={valueState}
+            />
+        </div>
     )
 }
 
