@@ -43,8 +43,9 @@ export const initialization = (userId, form) => (dispatch) => {
         roles = data.map(item => ({label: item, value: data.indexOf(item)}));
         if (userId) {
             UsersApi.getUserById(userId).then(response => {
-                dispatch(GetInitializationAction(roles, response.data));
-                form.setFieldsValue(response.data);
+                let user = {...response.data, avatar: response.data.avatar ?? '/unknownAvatar.jpeg'};
+                dispatch(GetInitializationAction(roles, user));
+                form.setFieldsValue(user);
             });
         } else {
             dispatch(GetInitializationAction(roles, state.user));

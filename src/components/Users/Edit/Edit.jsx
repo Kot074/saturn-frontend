@@ -18,6 +18,7 @@ const Edit = () => {
     const params = useParams();
     const [form] = Form.useForm();
     const navigate = useNavigate();
+    const emptyAvatar = '/unknownAvatar.jpeg';
 
     let lastname = Form.useWatch('lastname', form);
     let name = Form.useWatch('name', form);
@@ -28,6 +29,9 @@ const Edit = () => {
     }, [params.userId]);
 
     const onSubmit = (user) => {
+        if (user.avatar === emptyAvatar) {
+            user.avatar = null;
+        }
         dispatch(r.getSaveUserAction(user, params.userId, navigate))
     }
 
@@ -99,7 +103,7 @@ const Edit = () => {
                                 <Form.Item
                                     name={'avatar'}
                                     valuePropName={'src'}
-                                    initialValue={'/unknownAvatar.jpeg'}
+                                    initialValue={emptyAvatar}
                                     wrapperCol={{}}
                                 >
                                     <img alt={'Avatar'} />
