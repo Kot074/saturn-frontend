@@ -5,13 +5,14 @@ import {Checkbox, Form} from "antd";
 import {setCurrentUser, UsersApi} from "../../../Api/UsersApi";
 import {useNavigate} from "react-router-dom";
 import styles from './LoginForm.module.css';
+import {LoginModel} from "../../../models/LoginModel";
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const onSubmit = (data) => {
-        const isPersistant = data !== null ? data.remember : false;
+    const onSubmit = (data: LoginModel) => {
+        const isPersistent: boolean = data.isPersistent;
         UsersApi.loginByEmail(data).then((response) => {
-            setCurrentUser(response.data, isPersistant);
+            setCurrentUser(response.data, isPersistent);
             navigate(-1);
         });
     }
@@ -20,26 +21,26 @@ const LoginForm = () => {
             name={'login'}
             onFinish={onSubmit}
             layout={'horizontal'}
+            validateTrigger={'onSubmit'}
+            labelAlign={'left'}
+            labelCol={{
+                style: {width: '100px'}
+            }}
         >
             <div className={styles.row}>
                 <Form.Item
-                    wrapperCol={{
-                        offset: 1,
-                        span: 16
-                    }}
                     label={'E-mail'}
                     name={'email'}
+                    style={{width: '100%'}}
                 >
                     <SaturnInput />
                 </Form.Item>
             </div>
             <div className={styles.row}>
                 <Form.Item
-                    wrapperCol={{
-                        span: 16
-                    }}
                     label={'Пароль'}
                     name={'password'}
+                    style={{width: '100%'}}
                 >
                     <SaturnInput is_secret={'true'}/>
                 </Form.Item>
@@ -50,7 +51,7 @@ const LoginForm = () => {
                         span: 2
                     }}
                     label={'Запомнить'}
-                    name={'remember'}
+                    name={'isPersistent'}
                     style={{width: '200px'}}
                     valuePropName={'checked'}
                 >
