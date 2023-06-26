@@ -1,5 +1,5 @@
 export class LoginModel {
-    email: string;
-    password: string;
-    isPersistent: boolean;
+    email: string = '';
+    password: string = '';
+    isPersistent: boolean = false;
 }

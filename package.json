@@ -49,5 +49,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript-plugin-css-modules": "^5.0.1"
+  }
 }
